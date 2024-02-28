@@ -37,7 +37,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+    
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # ... include the providers you want to enable:
+    'allauth.socialaccount.providers.google',
+
+   #  'allauth.socialaccount.providers.auth0',
+   #  'allauth.socialaccount.providers.discord',
+   #  'allauth.socialaccount.providers.facebook',
+   # 'allauth.socialaccount.providers.instagram',
+   #  'allauth.socialaccount.providers.linkedin',
+   #  'allauth.socialaccount.providers.twitter',
+   #  'allauth.socialaccount.providers.twitter_oauth2',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -47,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'Auth_systems.urls'
@@ -62,10 +78,16 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
+
             ],
         },
     },
 ]
+
+SOCIAL_ACCOUNT_PROVIDERS = {
+
+}
 
 WSGI_APPLICATION = 'Auth_systems.wsgi.application'
 
@@ -79,6 +101,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 
 
 # Password validation
