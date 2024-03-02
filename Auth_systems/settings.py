@@ -41,16 +41,15 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    # ... include the providers you want to enable:
     'allauth.socialaccount.providers.google',
-
-   #  'allauth.socialaccount.providers.auth0',
-   #  'allauth.socialaccount.providers.discord',
-   #  'allauth.socialaccount.providers.facebook',
-   # 'allauth.socialaccount.providers.instagram',
-   #  'allauth.socialaccount.providers.linkedin',
-   #  'allauth.socialaccount.providers.twitter',
-   #  'allauth.socialaccount.providers.twitter_oauth2',
+    # ... include the providers you want to enable:
+    #  'allauth.socialaccount.providers.auth0',
+    #  'allauth.socialaccount.providers.discord',
+    #  'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.instagram',
+    #  'allauth.socialaccount.providers.linkedin',
+    #  'allauth.socialaccount.providers.twitter',
+    #  'allauth.socialaccount.providers.twitter_oauth2',
     ]
 
 MIDDLEWARE = [
@@ -86,7 +85,21 @@ TEMPLATES = [
 ]
 
 SOCIAL_ACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            "client_id" : "866162427969-t5be8h1pnuaq0ollk157holnpq1rmo60.apps.googleusercontent.com",
+            "secret": "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"
+        },
 
+        "SCOPE" :[
+            'profile',
+            'email'
+        ],
+
+        "AUTH_PARAMS": {
+            'access_type': 'online'
+        }
+    }
 }
 
 WSGI_APPLICATION = 'Auth_systems.wsgi.application'
@@ -103,11 +116,7 @@ DATABASES = {
 }
 
 AUTHENTICATION_BACKENDS = [
-
-    # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
@@ -153,3 +162,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'emails'
